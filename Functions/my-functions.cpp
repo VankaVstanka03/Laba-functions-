@@ -1,7 +1,7 @@
 #include "my-functions.h"
 #define pi 3.1415926535
 
-double exp(double x) {
+double exp(double x, int terms, double* eps) {
 	double res = 1;
 	double c = 1;
 	int n = 0;
@@ -9,11 +9,12 @@ double exp(double x) {
 		c = c * (x / (n + 1));
 		res += c;
 		n++;
-	} while ((x / (n + 1)) >= 0.001);
-	return n;
+	} while (n < terms);
+	*eps = (x / (n + 1));
+	return res;
 }
 
-double sin(double x) {
+double sin(double x, int terms, double* eps) {
 	double per = 1;
 	for (per; true; per++) {
 		if ((x >= 0) && (x <= (2 * per * pi))) {
@@ -38,12 +39,12 @@ double sin(double x) {
 		c *= (-1.0 * x * x) / ((2 * n + 3)*(2 * n + 2));
 		res += c;
 		n++;
-	} while (n < 1000);
-
+	} while (n < terms);
+	*eps = (x * x) / ((2 * n + 3) * (2 * n + 2));
 	return res;
 }
 
-double cos(double x) {
+double cos(double x, int terms, double* eps) {
 	double per = 1;
 	for (per; true; per++) {
 		if ((x >= 0) && (x <= (2 * per * pi))) {
@@ -68,11 +69,12 @@ double cos(double x) {
 		c *= (-1.0 * x * x) / ((2 * n + 1) * (2 * n + 2));
 		res += c;
 		n++;
-	} while (n < 1000);
+	} while (n < terms);
+	*eps = (x * x) / ((2 * n + 1) * (2 * n + 2));
 	return res;
 }
 
-double  asin(double x) {
+double  asin(double x, int terms, double* eps) {
 	double res = x;
 	double c = x;
 	double n = 0;
@@ -80,26 +82,34 @@ double  asin(double x) {
 		c *= ((x * x *(2 * n + 1) * (2 * n + 1))/((2 * n + 3)*(2 * n + 2)));
 		res += c;
 		n++;
-	} while (n < 1000);
+	} while (n < terms);
+	*eps = ((x * x) / ((2 * n + 3) * (2 * n + 2)));
 	return res;
 }
 
-double acos(double x) {
+double acos(double x, int terms, double* eps) {
 	double pi2 = pi / 2;
-	return pi2 - asin(x);
+	return pi2 - asin(x, terms, eps);
 }
 
 double power(double x1, int n1) {
-	if (n1 > 0) {
-		return x1 * power(x1, n1 - 1);
+	double res = 1;
+	if (n1 == 0) {
+		res = 1;
 	}
-	else if (n1 < 0) {
-		return 1.0 / power(x1, -n1);
+	else if (n1 == 1) {
+		res = x1;
 	}
-	return 1;
+	else if (n1 % 2 == 0) {
+		res = power(x1 * x1, n1 / 2);
+	}
+	else {
+		res = x1 * power(x1 * x1, n1 / 2);
+	}
+	return res;
 }
 
-double fact(int n1) {
+double fact(double n1) {
 	if ((n1 == 0) || (n1 == 1)) {
 		return 1;
 	}

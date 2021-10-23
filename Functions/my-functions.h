@@ -1,9 +1,9 @@
 #pragma once
-double exp(double x);
-double sin(double x);
-double cos(double x);
-double asin(double x);
-double acos(double x);
+double exp(double x, int terms, double* eps);
+double sin(double x, int terms, double* eps);
+double cos(double x, int terms, double* eps);
+double asin(double x, int terms, double* eps);
+double acos(double x, int terms, double* eps);
 
 double power(double x, int n1);
 double fact(int n1);
