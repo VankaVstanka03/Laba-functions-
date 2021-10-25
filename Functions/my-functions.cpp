@@ -2,9 +2,9 @@
 #define pi 3.1415926535
 
 double exp(double x, int terms, double* eps) {
-	double res = 1;
-	double c = 1;
-	int n = 0;
+	double res = 1.0;
+	double c = 1.0;
+	double n = 0.0;
 	do {
 		c = c * (x / (n + 1));
 		res += c;
@@ -15,26 +15,26 @@ double exp(double x, int terms, double* eps) {
 }
 
 double sin(double x, int terms, double* eps) {
-	double per = 1;
+	double per = 1.0;
 	for (per; true; per++) {
 		if ((x >= 0) && (x <= (2 * per * pi))) {
 			x = (-1)*(2 * per * pi - x);
 			break;
 		}
-		else if ((x >= 0) && (x <= (2 * pi))) {
-			break;
-		}
+		//else if ((x >= 0) && (x <= (2 * pi))) {
+			//break;
+		//}
 		else if ((x <= 0) && (x >= (-1)*(2 * per * pi))) {
 			x = x + (2 * per * pi);
 			break;
 		}
-		else if ((x <= 0) && (x >= (-1) * (2 * pi))) {
-			break;
-		}
+		//else if ((x <= 0) && (x >= (-1) * (2 * pi))) {
+			//break;
+		//}
 	}
 	double res = x;
 	double c = x;
-	double n = 0;
+	double n = 0.0;
 	do {
 		c *= (-1.0 * x * x) / ((2 * n + 3)*(2 * n + 2));
 		res += c;
@@ -45,7 +45,7 @@ double sin(double x, int terms, double* eps) {
 }
 
 double cos(double x, int terms, double* eps) {
-	double per = 1;
+	double per = 1.0;
 	for (per; true; per++) {
 		if ((x >= 0) && (x <= (2 * per * pi))) {
 			x = (2 * per * pi - x);
@@ -62,9 +62,9 @@ double cos(double x, int terms, double* eps) {
 			break;
 		}
 	}
-	double res = 1;
-	double c = 1;
-	double n = 0;
+	double res = 1.0;
+	double c = 1.0;
+	double n = 0.0;
 	do {
 		c *= (-1.0 * x * x) / ((2 * n + 1) * (2 * n + 2));
 		res += c;
@@ -77,7 +77,7 @@ double cos(double x, int terms, double* eps) {
 double  asin(double x, int terms, double* eps) {
 	double res = x;
 	double c = x;
-	double n = 0;
+	double n = 0.0;
 	do {
 		c *= ((x * x *(2 * n + 1) * (2 * n + 1))/((2 * n + 3)*(2 * n + 2)));
 		res += c;
@@ -93,7 +93,7 @@ double acos(double x, int terms, double* eps) {
 }
 
 double power(double x1, int n1) {
-	double res = 1;
+	double res = 1.0;
 	if (n1 == 0) {
 		res = 1;
 	}
@@ -111,7 +111,7 @@ double power(double x1, int n1) {
 
 double fact(double n1) {
 	if ((n1 == 0) || (n1 == 1)) {
-		return 1;
+		return 1.0;
 	}
 	return n1 * fact(n1 - 1);
 }

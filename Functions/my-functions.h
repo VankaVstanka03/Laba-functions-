@@ -6,4 +6,4 @@ double asin(double x, int terms, double* eps);
 double acos(double x, int terms, double* eps);
 
 double power(double x, int n1);
-double fact(int n1);
+double fact(double n1);
