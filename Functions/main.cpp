@@ -71,6 +71,9 @@ int main() {
 			scanf_s("%lf", &x);
 			printf(" Factorial equal: %.0lf \n", fact(x));
 			break;
+		default:
+			printf(" Invalid value entered");
+			break;
 	}
 	return 0;
 }

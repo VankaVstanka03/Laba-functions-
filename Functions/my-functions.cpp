@@ -10,27 +10,27 @@ double exp(double x, int terms, double* eps) {
 		res += c;
 		n++;
 	} while (n < terms);
-	*eps = (x / (n + 1));
+	*eps = c < 0 ? (-1) * c : c;
 	return res;
 }
 
 double sin(double x, int terms, double* eps) {
-	double per = 1.0;
-	for (per; true; per++) {
-		if ((x >= 0) && (x <= (2 * per * pi))) {
-			x = (-1)*(2 * per * pi - x);
-			break;
+	double per = 2.0;
+	if (((x >= 0) && (x <= (2 * pi))) || ((x <= 0) && (x >= (-1) * (2 * pi)))) {
+		x = x;
+	}
+	else {
+		for (per; true; per++) {
+			if ((x >= 0) && (x <= (2 * per * pi))) {
+				x = (-1) * (2 * per * pi - x);
+				break;
+			}
+			else if ((x <= 0) && (x >= (-1) * (2 * per * pi))) {
+				x = x + (2 * per * pi);
+				break;
+			}
+
 		}
-		//else if ((x >= 0) && (x <= (2 * pi))) {
-			//break;
-		//}
-		else if ((x <= 0) && (x >= (-1)*(2 * per * pi))) {
-			x = x + (2 * per * pi);
-			break;
-		}
-		//else if ((x <= 0) && (x >= (-1) * (2 * pi))) {
-			//break;
-		//}
 	}
 	double res = x;
 	double c = x;
@@ -40,27 +40,28 @@ double sin(double x, int terms, double* eps) {
 		res += c;
 		n++;
 	} while (n < terms);
-	*eps = (x * x) / ((2 * n + 3) * (2 * n + 2));
+	*eps = c < 0 ? (-1) * c : c;
 	return res;
 }
 
 double cos(double x, int terms, double* eps) {
 	double per = 1.0;
-	for (per; true; per++) {
-		if ((x >= 0) && (x <= (2 * per * pi))) {
-			x = (2 * per * pi - x);
-			break;
+	if (((x >= 0) && (x <= (2 * pi))) || ((x <= 0) && (x >= (-1) * (2 * pi)))) {
+		x = x;
+	}
+	else {
+		for (per; true; per++) {
+			if ((x >= 0) && (x <= (2 * per * pi))) {
+				x = (2 * per * pi - x);
+				break;
+			}
+			else if ((x <= 0) && (x >= (-1) * (2 * per * pi))) {
+				x = x + (2 * per * pi);
+				break;
+			}
+
 		}
-		else if ((x >= 0) && (x <= (2 * pi))) {
-			break;
-		}
-		else if ((x <= 0) && (x >= (-1) * (2 * per * pi))) {
-			x = x + (2 * per * pi);
-			break;
-		}
-		else if ((x <= 0) && (x >= (-1) * (2 * pi))) {
-			break;
-		}
+
 	}
 	double res = 1.0;
 	double c = 1.0;
@@ -70,7 +71,7 @@ double cos(double x, int terms, double* eps) {
 		res += c;
 		n++;
 	} while (n < terms);
-	*eps = (x * x) / ((2 * n + 1) * (2 * n + 2));
+	*eps = c < 0 ? (-1) * c : c;
 	return res;
 }
 
@@ -83,7 +84,7 @@ double  asin(double x, int terms, double* eps) {
 		res += c;
 		n++;
 	} while (n < terms);
-	*eps = ((x * x) / ((2 * n + 3) * (2 * n + 2)));
+	*eps = c < 0 ? (-1) * c : c;
 	return res;
 }
 
